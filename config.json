@@ -2,11 +2,11 @@
   "octo_api_url" : "https://api.octopus.energy/v1/",
   "octo_product_code" : "AGILE-18-02-21",
   "octo_region_code" : "E",
-  "octo_price_threshold" : 3.00,
+  "octo_price_threshold" : 3,
   "octo_segments_ahead" : 6,
-  "octo_segments_ahead_morning" : "2",
-  "octo_morning_start" : "3",
-  "octo_morning_end" : "5",
+  "octo_segments_ahead_morning" : 2,
+  "octo_morning_start" : 3,
+  "octo_morning_end" : 5,
   "octo_diff_percentage" : 10,
   "test" : {
   	"ewel_device_id" : "0000000000"
