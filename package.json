@@ -14,7 +14,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "ewelink-api": "git://github.com/skydiver/ewelink-api.git#release/3.1.0-ws"
-  }
+  },
   "repository": {
     "type" : "git",
     "url" : "https://github.com/ianhampton/Agile-Octopus-Switch.git"
