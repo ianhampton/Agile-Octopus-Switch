@@ -34,4 +34,6 @@ Once installed invoke it by calling `octoswitch` within your system command line
 
 My immersion heater is controlled by a non-Sonoff switch that happens to also use the eWeLink platform, specifically a KingArt N1 running the v3 firmware. I struggled to find an existing implementation of the eWeLink API that would work with this combination. I'm using the [ewelink-api Node module by skydiver](https://github.com/skydiver/ewelink-api) but found that the current release (v3.0.0) returned an API error when attempting to control the switch. I had some success with the recently added `3.1.0-ws` branch so that's included as a dependency for this package.
 
+The APP_ID and APP_SECRET settings come from [this thread](https://github.com/skydiver/ewelink-api/issues/88#issuecomment-640211085) and appear to be unique to the ewelink-api module, without them I couldn't control non-Sonoff devices.
+
 I can't find a working function to read the current device state, so I'm setting the state to on or off each time. I couldn't control my KingArt switch through LAN mode, but could control another Sonoff device that I had running locally. It would have been nice to remove the dependency on the eWeLink servers. 
