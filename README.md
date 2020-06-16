@@ -21,7 +21,9 @@ Install globally:
 
 `npm install https://github.com/ianhampton/Agile-Octopus-Switch.git -g`
 
-Update `config.json` within `node_modules/octopus-switch` to include your eWeLink username/password and device ID. The device ID can be found under the device settings within the eWeLink app. Update the Octopus settings where required, the region relates to your [DNO region](https://en.wikipedia.org/wiki/Distribution_network_operator).
+Update `config.json` within `node_modules/octopus-switch` to include your eWeLink username/password and device ID. The device ID can be found under the device settings within the eWeLink app. There's a poorly implemented concept of a test and production device as I was testing on another switch, update `octopus-switch.js` to alter which device is used.
+
+Update the Octopus settings where required, the region relates to your [DNO region](https://en.wikipedia.org/wiki/Distribution_network_operator).
 
 Once installed invoke it by calling `octoswitch` within your system command line. You'll probably want to run **crontab -e** and add something like:
 
