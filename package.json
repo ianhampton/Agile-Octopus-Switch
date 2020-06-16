@@ -1,0 +1,14 @@
+{
+  "name": "octopus-switch",
+  "version": "1.0.0",
+  "description": "Retrieves the current Agile Octopus rate and toggles an eWeLink switch at the optimum moment",
+  "main": "octopus-switch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ian Hampton",
+  "license": "MIT",
+  "bin": {
+    "octoswitch": "octopus-switch.js"
+  }
+}

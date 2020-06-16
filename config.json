@@ -1,0 +1,22 @@
+{
+  "octo_api_url" : "https://api.octopus.energy/v1/",
+  "octo_product_code" : "AGILE-18-02-21",
+  "octo_region_code" : "E",
+  "octo_price_threshold" : 3.00,
+  "octo_segments_ahead" : 6,
+  "octo_segments_ahead_morning" : "2",
+  "octo_morning_start" : "3",
+  "octo_morning_end" : "5",
+  "octo_diff_percentage" : 10,
+  "test" : {
+  	"ewel_device_id" : "0000000000"
+  },
+  "prod" : {
+  	"ewel_device_id" : "0000000000"
+  },
+  "ewel_email" : "yourewelinkuser@mail.com",
+  "ewel_password" : "yourewelinkpassword",
+  "ewel_region" : "eu",
+  "ewel_app_id" : "oeVkj2lYFGnJu5XUtWisfW4utiN4u9Mq",
+  "ewel_app_secret" : "6Nz4n0xA8s8qdxQf2GqurZj2Fs55FUvM"
+}
