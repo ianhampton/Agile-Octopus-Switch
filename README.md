@@ -36,4 +36,31 @@ My immersion heater is controlled by a non-Sonoff switch that happens to also us
 
 The APP_ID and APP_SECRET settings come from [this thread](https://github.com/skydiver/ewelink-api/issues/88#issuecomment-640211085) and appear to be unique to the ewelink-api module, without them I couldn't control non-Sonoff devices.
 
-I can't find a working function to read the current device state, so I'm setting the state to on or off each time. I couldn't control my KingArt switch through LAN mode, but could control another Sonoff device that I had running locally. It would have been nice to remove the dependency on the eWeLink servers. 
+I can't find a working function to read the current device state, so I'm setting the state to on or off each time. I couldn't control my KingArt switch through LAN mode, but could control another Sonoff device that I had running locally. It would have been nice to remove the dependency on the eWeLink servers.
+
+---
+## Overview of config parameters
+
+| Parameter | Description |
+| --- | --- |
+| octo_api_url | Octopus API URL - Probably won't need to be changed. |
+| octo_product_code | Product code for Agile - Probably won't need to be changed. |
+| octo_region_code | Your [DNO region](https://en.wikipedia.org/wiki/Distribution_network_operator). |
+| octo_price_threshold | Maximum price in p/kWh e.g. don't switch on unless the price is under 3p/kWh. |
+| octo_segments_ahead | How many segments ahead should prices be compared? 6 segments = 3hrs. |
+| octo_segments_ahead_morning | How many segments ahead should prices be compared during the morning? A lower value makes the switch more likely to trigger before high morning demand. |
+| octo_morning_start | Hour of day when the morning time period should begin. |
+| octo_morning_end | Hour of day when the morning time period should end. |
+| octo_diff_percentage | Percentage difference between current and future price before we should wait to turn on. e.g. don't wait for a future price unless it's over 10% cheaper. |
+| octo_diff_percentage | Percentage difference between current and future price before we should wait to turn on. e.g. don't wait for a future price unless it's over 10% cheaper. |
+| test.ewel_device_id | Test eWeLink device ID, availiable under Device Settings in the eWeLink app. The test value is used by default, update `octopus-switch.js` to change to the 'prod' device.  |
+| prod.ewel_device_id | Prod eWeLink device ID, availiable under Device Settings in the eWeLink app. |
+| ewel_email | Your eWeLink username. |
+| ewel_password | Your eWeLink password. |
+| ewel_region | Your eWeLink region, probably 'eu' if you're an Octopus customer. |
+| ewel_app_id | APP_ID generated for the ewelink-api project by eWeLink, can probably be left alone. |
+| ewel_app_secret | APP_SECRET generated for the ewelink-api project by eWeLink, can probably be left alone. |
+
+
+
+
