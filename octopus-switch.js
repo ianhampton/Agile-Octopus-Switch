@@ -43,14 +43,12 @@ async function controlSwitch(state) {
     if (state == "log") {
         const devices = await ewelink_connection.getDevices();
         console.log(devices);
-    } 
-    else if (state == "status") {
-    	// This function doesn't appear to be working currently (API response error)
-    	// My intention was to check the device state before altering it
-		const status = await ewelink_connection.getDevicePowerState(device_id);
-		console.log(status);
-    }
-    else {
+    } else if (state == "status") {
+        // This function doesn't appear to be working currently (API response error)
+        // My intention was to check the device state before altering it
+        const status = await ewelink_connection.getDevicePowerState(device_id);
+        console.log(status);
+    } else {
         await ewelink_connection.setWSDevicePowerState(device_id, state);
         console.log(`[ewelink] Device ID: ${device_id} - Set power state: ${state}`);
     }
