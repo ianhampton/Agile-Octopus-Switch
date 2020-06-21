@@ -96,7 +96,7 @@ axios.get(url, {
                 controlSwitch("off");
             }
             else if (current_rate < price_threshold && !cheapest_rate) {
-                console.log(`[octopus] Price is below ${price_threshold}p/kWh threshold but isn't cheapest - Switch off!`);
+                console.log(`[octopus] Price is below ${price_threshold}p/kWh threshold, but isn't the cheapest rate - Switch off!`);
                 controlSwitch("off");
             }
         }
