@@ -53,7 +53,7 @@ I can't find a working function to read the current device state, so I'm setting
 | octo_morning_end | Hour of day when the morning time period should end. |
 | octo_diff_percentage | Percentage difference between current and future price before we should wait to turn on. e.g. don't wait for a future price unless it's over 10% cheaper. |
 | octo_diff_percentage | Percentage difference between current and future price before we should wait to turn on. e.g. don't wait for a future price unless it's over 10% cheaper. |
-| test.ewel_device_id | Test eWeLink device ID, availiable under Device Settings in the eWeLink app. The test value is used by default, update `octopus-switch.js` to change to the 'prod' device.  |
+| test.ewel_device_id | Test eWeLink device ID, availiable under Device Settings in the eWeLink app. The prod value is used by default, update `octopus-switch.js` to change to the 'test' device.  |
 | prod.ewel_device_id | Prod eWeLink device ID, availiable under Device Settings in the eWeLink app. |
 | ewel_email | Your eWeLink username. |
 | ewel_password | Your eWeLink password. |
