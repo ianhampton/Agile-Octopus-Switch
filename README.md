@@ -27,7 +27,7 @@ Update the Octopus settings where required, the region relates to your [DNO regi
 
 Once installed invoke it by calling `octoswitch` within your system command line. You'll probably want to run **crontab -e** and add something like:
 
-`*/30 * * * * sleep 20; octoswitch > /home/pi/cron.log`
+`*/30 * * * * sleep 10; /usr/local/bin/node /home/pi/node-octopus-switch/octopus-switch.js >> /home/pi/cron-switch.log 2>&1`
 
 ---
 ## Notes
