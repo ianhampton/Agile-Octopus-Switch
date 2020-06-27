@@ -29,6 +29,7 @@ const ewelink_connection = new ewelink({
 var date = new Date();
 var now = date.toISOString();
 var hour = date.getHours();
+var minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
 
 // Alter how far ahead we look if it's the morning
 if ((hour >= config.octo_morning_start) && (hour <= config.octo_morning_end)) {
@@ -51,11 +52,11 @@ async function controlSwitch(state) {
     }
     else {
         await ewelink_connection.setWSDevicePowerState(device_id, state);
-        console.log(`[ewelink] Device ID: ${device_id} - Set power state: ${state}`);
+        console.log(`[ewelink] [${hour}:${minutes}] Device ID: ${device_id} - Set power state: ${state}`);
     }
 }
 
-console.log(`[octopus] Checking the rates over the next ${(segments_ahead / 2)}${unit}...`);
+console.log(`[octopus] [${hour}:${minutes}] Checking the rates over the next ${(segments_ahead / 2)}${unit}...`);
 
 axios.get(url, {
     headers: {
@@ -75,28 +76,28 @@ axios.get(url, {
             current_rates.forEach(function(rate) {
                 if (rate < current_rate) {
                     if (((current_rate - rate) / rate * 100) < diff_percentage) {
-                        console.log(`[octopus] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh - Less than ${diff_percentage}% difference so ignored`);
+                        console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh - Less than ${diff_percentage}% difference so ignored`);
                     } else {
-                        console.log(`[octopus] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
+                        console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
                         cheapest_rate = false;
                     }
                 }
             });
             if (cheapest_rate) {
-                console.log(`[octopus] Currently the cheapest rate (${current_rate}p/kWh) for the next ${(segments_ahead / 2)}${unit}`);
+                console.log(`[octopus] [${hour}:${minutes}] Currently the cheapest rate (${current_rate}p/kWh) for the next ${(segments_ahead / 2)}${unit}`);
                 if (current_rate < price_threshold) {
-                    console.log(`[octopus] Price is below ${price_threshold}p/kWh threshold - Switch on!`);
+                    console.log(`[octopus] [${hour}:${minutes}] Price is below ${price_threshold}p/kWh threshold - Switch on!`);
                     controlSwitch("on");
                 } else {
-                    console.log(`[octopus] Price is above ${price_threshold}p/kWh threshold - Not turning switch on`);
+                    console.log(`[octopus] [${hour}:${minutes}] Price is above ${price_threshold}p/kWh threshold - Not turning switch on`);
                 }
             }
             if (current_rate > price_threshold) {
-                console.log(`[octopus] Price is above ${price_threshold}p/kWh threshold - Switch off!`);
+                console.log(`[octopus] [${hour}:${minutes}] Price is above ${price_threshold}p/kWh threshold - Switch off!`);
                 controlSwitch("off");
             }
             else if (current_rate < price_threshold && !cheapest_rate) {
-                console.log(`[octopus] Price is below ${price_threshold}p/kWh threshold, but isn't the cheapest rate - Switch off!`);
+                console.log(`[octopus] [${hour}:${minutes}] Price is below ${price_threshold}p/kWh threshold, but isn't the cheapest rate - Switch off!`);
                 controlSwitch("off");
             }
         }
