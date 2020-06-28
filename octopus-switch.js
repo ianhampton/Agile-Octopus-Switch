@@ -75,7 +75,11 @@ axios.get(url, {
             let current_rate = current_rates[0];
             current_rates.forEach(function(rate) {
                 if (rate < current_rate) {
-                    if (((current_rate - rate) / rate * 100) < diff_percentage) {
+                    if (current_rate > 0 && rate < 0) {
+                        console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper plunge rate coming up: ${rate}p/kWh`);
+                        cheapest_rate = false;
+                    }
+                    else if (((current_rate - rate) / rate * 100) < diff_percentage) {
                         console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh - Less than ${diff_percentage}% difference so ignored`);
                     } else {
                         console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
