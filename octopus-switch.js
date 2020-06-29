@@ -15,7 +15,7 @@ const device_id = config.prod.ewel_device_id; // Hot water
 
 const price_threshold = config.octo_price_threshold; // Max price to switch off at
 var segments_ahead = config.octo_segments_ahead; // How far ahead should we look for a cheaper price? 6 = 3hrs
-const diff_percentage = config.octo_diff_percentage; // Percentage cheaper threshold (e.g. ignore if only 5% cheaper)
+const price_round = config.octo_price_round; // Round prices to a number of decimal places before comparing
 
 const ewelink_connection = new ewelink({
     email: config.ewel_email,
@@ -73,18 +73,12 @@ axios.get(url, {
         if (current_rates.length > 0) {
             let cheapest_rate = true;
             let current_rate = current_rates[0];
+            let current_rate_rounded = parseFloat(current_rates[0].toFixed(price_round));
             current_rates.forEach(function(rate) {
-                if (rate < current_rate) {
-                    if (current_rate > 0 && rate < 0) {
-                        console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper plunge rate coming up: ${rate}p/kWh`);
-                        cheapest_rate = false;
-                    }
-                    else if (((current_rate - rate) / rate * 100) < diff_percentage) {
-                        console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh - Less than ${diff_percentage}% difference so ignored`);
-                    } else {
-                        console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
-                        cheapest_rate = false;
-                    }
+                let rate_rounded = parseFloat(rate.toFixed(price_round));
+                if (rate_rounded < current_rate_rounded) {
+					console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
+					cheapest_rate = false;
                 }
             });
             if (cheapest_rate) {

@@ -7,7 +7,7 @@
   "octo_segments_ahead_morning" : 2,
   "octo_morning_start" : 3,
   "octo_morning_end" : 5,
-  "octo_diff_percentage" : 10,
+  "octo_price_round" : 1,
   "test" : {
   	"ewel_device_id" : "0000000000"
   },
