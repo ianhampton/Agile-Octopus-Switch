@@ -11,7 +11,7 @@ The default behaviour (rates, times etc. are configurable in config.json)...
 
 * Pull the current rate, and the next 3 hours of rates from the Octopus API.
 * If the current price is the lowest within that batch, and below the maximum price (3p/kWh) then switch on.
-* If there's a cheaper price in the next 3 hours remain off, unless the difference is minimal (10%), then favour switching on sooner.
+* If there's a cheaper price in the next 3 hours remain off, unless the difference is minimal, then favour switching on sooner.
 * If it's between 3 and 5am only look at the rates 1hr ahead so that the switch is more likely to turn on before peak hot water usage (morning showers).
 * Switch off when the current price exceeds the maximum price.
 
@@ -51,8 +51,7 @@ I can't find a working function to read the current device state, so I'm setting
 | octo_segments_ahead_morning | How many segments ahead should prices be compared during the morning? A lower value makes the switch more likely to trigger before high morning demand. |
 | octo_morning_start | Hour of day when the morning time period should begin. |
 | octo_morning_end | Hour of day when the morning time period should end. |
-| octo_diff_percentage | Percentage difference between current and future price before we should wait to turn on. e.g. don't wait for a future price unless it's over 10% cheaper. |
-| octo_diff_percentage | Percentage difference between current and future price before we should wait to turn on. e.g. don't wait for a future price unless it's over 10% cheaper. |
+| octo_price_round | Round prices to a number of decimal prices before comparing to avoid waiting for a price that's fractionally cheaper. |
 | test.ewel_device_id | Test eWeLink device ID, availiable under Device Settings in the eWeLink app. The prod value is used by default, update `octopus-switch.js` to change to the 'test' device.  |
 | prod.ewel_device_id | Prod eWeLink device ID, availiable under Device Settings in the eWeLink app. |
 | ewel_email | Your eWeLink username. |
