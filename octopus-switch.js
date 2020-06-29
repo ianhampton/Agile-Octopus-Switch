@@ -29,7 +29,7 @@ const ewelink_connection = new ewelink({
 var date = new Date();
 var now = date.toISOString();
 var hour = date.getHours();
-var minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
+var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
 // Alter how far ahead we look if it's the morning
 if ((hour >= config.octo_morning_start) && (hour <= config.octo_morning_end)) {
@@ -44,13 +44,13 @@ async function controlSwitch(state) {
     if (state == "log") {
         const devices = await ewelink_connection.getDevices();
         console.log(devices);
-    } 
-    else if (state == "status") {
-    	// This function doesn't appear to be working currently (API response error) my intention was to check the state before altering it
-		const status = await ewelink_connection.getWSDevicePowerState(device_id, {shared:false});
-		console.log(status);
-    }
-    else {
+    } else if (state == "status") {
+        // This function doesn't appear to be working currently (API response error) my intention was to check the state before altering it
+        const status = await ewelink_connection.getWSDevicePowerState(device_id, {
+            shared: false
+        });
+        console.log(status);
+    } else {
         await ewelink_connection.setWSDevicePowerState(device_id, state);
         console.log(`[ewelink] [${hour}:${minutes}] Device ID: ${device_id} - Set power state: ${state}`);
     }
@@ -77,8 +77,8 @@ axios.get(url, {
             current_rates.forEach(function(rate) {
                 let rate_rounded = parseFloat(rate.toFixed(price_round));
                 if (rate_rounded < current_rate_rounded) {
-					console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
-					cheapest_rate = false;
+                    console.log(`[octopus] [${hour}:${minutes}] Currently: ${current_rate}p/kWh - Cheaper rate coming up: ${rate}p/kWh`);
+                    cheapest_rate = false;
                 }
             });
             if (cheapest_rate) {
@@ -93,8 +93,7 @@ axios.get(url, {
             if (current_rate > price_threshold) {
                 console.log(`[octopus] [${hour}:${minutes}] Price is above ${price_threshold}p/kWh threshold - Switch off!`);
                 controlSwitch("off");
-            }
-            else if (current_rate < price_threshold && !cheapest_rate) {
+            } else if (current_rate < price_threshold && !cheapest_rate) {
                 console.log(`[octopus] [${hour}:${minutes}] Price is below ${price_threshold}p/kWh threshold, but isn't the cheapest rate - Switch off!`);
                 controlSwitch("off");
             }
