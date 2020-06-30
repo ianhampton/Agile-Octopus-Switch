@@ -14,7 +14,7 @@ const tariff_code = `E-1R-${product_code}-${region_code}`;
 const device_id = config.prod.ewel_device_id; // Hot water
 
 const price_threshold = config.octo_price_threshold; // Max price to switch off at
-var segments_ahead = config.octo_segments_ahead; // How far ahead should we look for a cheaper price? 6 = 3hrs
+let segments_ahead = config.octo_segments_ahead; // How far ahead should we look for a cheaper price? 6 = 3hrs
 const price_round = config.octo_price_round; // Round prices to a number of decimal places before comparing
 
 const ewelink_connection = new ewelink({
@@ -26,19 +26,18 @@ const ewelink_connection = new ewelink({
 });
 /* --- End configuration --- */
 
-var date = new Date();
-var now = date.toISOString();
-var hour = date.getHours();
-var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-var ts = `[${hour}:${minutes}]`;
+let date = new Date();
+let now = date.toISOString();
+let hour = date.getHours();
+let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+let ts = `[${hour}:${minutes}]`;
 
 // Alter how far ahead we look if it's the morning
 if ((hour >= config.octo_morning_start) && (hour <= config.octo_morning_end)) {
-    var segments_ahead = config.octo_segments_ahead_morning;
+    let segments_ahead = config.octo_segments_ahead_morning;
 }
 
-var unit = (segments_ahead <= 2) ? "hr" : "hrs";
-
+const unit = (segments_ahead <= 2) ? "hr" : "hrs";
 const url = `${api_url}products/${product_code}/electricity-tariffs/${tariff_code}/standard-unit-rates/?period_from=${now}`;
 
 async function controlSwitch(state) {
