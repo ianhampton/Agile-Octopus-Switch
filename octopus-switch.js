@@ -8,7 +8,7 @@ const config = require('./config.json');
 const api_url = config.octo_api_url;
 const product_code = config.octo_product_code;
 const region_code = config.octo_region_code;
-const tariff_code = "E-1R-" + product_code + "-" + region_code;
+const tariff_code = `E-1R-${product_code}-${region_code}`;
 
 //const device_id = config.test.ewel_device_id; // Test light
 const device_id = config.prod.ewel_device_id; // Hot water
@@ -39,7 +39,7 @@ if ((hour >= config.octo_morning_start) && (hour <= config.octo_morning_end)) {
 
 var unit = (segments_ahead <= 2) ? "hr" : "hrs";
 
-const url = api_url + "products/" + product_code + "/electricity-tariffs/" + tariff_code + "/standard-unit-rates/?period_from=" + now;
+const url = `${api_url}products/${product_code}/electricity-tariffs/${tariff_code}/standard-unit-rates/?period_from=${now}`;
 
 async function controlSwitch(state) {
     if (state == "log") {
