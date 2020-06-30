@@ -64,7 +64,7 @@ axios.get(url, {
     }
 }).then(res => {
     if (res.data.count > segments_ahead) {
-        rates = res.data.results.reverse();
+        let rates = res.data.results.reverse();
         let current_rates = [];
         rates.slice(0, segments_ahead).forEach(function(rate) {
             current_rates.push(rate.value_inc_vat);
