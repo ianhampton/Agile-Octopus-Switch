@@ -34,7 +34,7 @@ const ts = `[${hour}:${minutes}]`;
 
 // Alter how far ahead we look if it's the morning
 if ((hour >= config.octo_morning_start) && (hour <= config.octo_morning_end)) {
-    let segments_ahead = config.octo_segments_ahead_morning;
+    segments_ahead = config.octo_segments_ahead_morning;
 }
 
 const unit = (segments_ahead <= 2) ? "hr" : "hrs";
