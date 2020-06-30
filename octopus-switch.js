@@ -26,11 +26,11 @@ const ewelink_connection = new ewelink({
 });
 /* --- End configuration --- */
 
-let date = new Date();
-let now = date.toISOString();
-let hour = date.getHours();
-let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-let ts = `[${hour}:${minutes}]`;
+const date = new Date();
+const now = date.toISOString();
+const hour = date.getHours();
+const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+const ts = `[${hour}:${minutes}]`;
 
 // Alter how far ahead we look if it's the morning
 if ((hour >= config.octo_morning_start) && (hour <= config.octo_morning_end)) {
