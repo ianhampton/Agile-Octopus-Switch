@@ -41,18 +41,23 @@ const unit = (segments_ahead <= 2) ? "hr" : "hrs";
 const url = `${api_url}products/${product_code}/electricity-tariffs/${tariff_code}/standard-unit-rates/?period_from=${now}`;
 
 async function controlSwitch(state) {
-    if (state == "log") {
-        const devices = await ewelink_connection.getDevices();
-        console.log(devices);
-    } else if (state == "status") {
-        // This function doesn't appear to be working currently (API response error) my intention was to check the state before altering it
-        const status = await ewelink_connection.getWSDevicePowerState(device_id, {
-            shared: false
-        });
-        console.log(status);
-    } else {
-        await ewelink_connection.setWSDevicePowerState(device_id, state);
-        console.log(`[ewelink] ${ts} Device ID: ${device_id} - Set power state: ${state}`);
+    try {
+        if (state == "log") {
+            const devices = await ewelink_connection.getDevices();
+            console.log(devices);
+        } else if (state == "status") {
+            // This function doesn't appear to be working currently (API response error) my intention was to check the state before altering it
+            const status = await ewelink_connection.getWSDevicePowerState(device_id, {
+                shared: false
+            });
+            console.log(status);
+
+        } else {
+            await ewelink_connection.setWSDevicePowerState(device_id, state);
+            console.log(`[ewelink] ${ts} Device ID: ${device_id} - Set power state: ${state}`);
+        }
+    } catch (e) {
+        console.log(`[error] eWeLink API error: ${e}`);
     }
 }
 
@@ -99,4 +104,6 @@ axios.get(url, {
             }
         }
     }
+}).catch(error => {
+  console.log(`[error] Octopus API error: ${error.response.status}`);
 });
