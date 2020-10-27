@@ -41,23 +41,34 @@ const unit = (segments_ahead <= 2) ? "hr" : "hrs";
 const url = `${api_url}products/${product_code}/electricity-tariffs/${tariff_code}/standard-unit-rates/?period_from=${now}`;
 
 async function controlSwitch(state) {
-    try {
-        if (state == "log") {
-            const devices = await ewelink_connection.getDevices();
-            console.log(devices);
-        } else if (state == "status") {
-            // This function doesn't appear to be working currently (API response error) my intention was to check the state before altering it
-            const status = await ewelink_connection.getWSDevicePowerState(device_id, {
-                shared: false
-            });
-            console.log(status);
+    var count = 0;
+    var retry = 5;
+    while(true) {
+		try {
+			if (state == "log") {
+				const devices = await ewelink_connection.getDevices();
+				console.log(devices);
+				break;
+			} else if (state == "status") {
+				// This function doesn't appear to be working currently (API response error) my intention was to check the state before altering it
+				const status = await ewelink_connection.getWSDevicePowerState(device_id, {
+					shared: false
+				});
+				console.log(status);
+				break;
 
-        } else {
-            await ewelink_connection.setWSDevicePowerState(device_id, state);
-            console.log(`[ewelink] ${ts} Device ID: ${device_id} - Set power state: ${state}`);
-        }
-    } catch (e) {
-        console.log(`[error] eWeLink API error: ${e}`);
+			} else {
+				// Non-Sonoff devices use WebSocket connection:
+				//await ewelink_connection.setWSDevicePowerState(device_id, state);
+				// Sonoff devices:
+				await ewelink_connection.setDevicePowerState(device_id, state);
+				console.log(`[ewelink] ${ts} Device ID: ${device_id} - Set power state: ${state}`);
+				break;
+			}
+		} catch (e) {
+			console.log(`[ewelink] ${ts} [error] [attempt ${count+1}/${retry}] eWeLink API error: ${e}`);
+			if (++count == retry) break;
+		}
     }
 }
 
@@ -105,5 +116,5 @@ axios.get(url, {
         }
     }
 }).catch(error => {
-  console.log(`[error] Octopus API error: ${error.response.status}`);
+  console.log(`[octopus] ${ts} [error] Octopus API error: ${error.response.status}`);
 });
