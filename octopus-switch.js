@@ -41,8 +41,8 @@ const unit = (segments_ahead <= 2) ? "hr" : "hrs";
 const url = `${api_url}products/${product_code}/electricity-tariffs/${tariff_code}/standard-unit-rates/?period_from=${now}`;
 
 async function controlSwitch(state) {
-    var count = 0;
-    var retry = 5;
+    const count = 0;
+    const retry = 5;
     while (true) {
         try {
             if (state == "log") {
